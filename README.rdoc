@@ -4,8 +4,7 @@ Based on the original Hanna by Mislav.
 
 Hanna is an RDoc generator that scales. It's implemented in Haml, making the
 sources clean and readable. It's built with simplicity, beauty and ease of
-browsing in mind. (See more in {the
-wiki}[http://github.com/mislav/hanna/wikis/home].)
+browsing in mind.
 
 Hanna gem is available from http://rubygems.org:
 
@@ -20,6 +19,8 @@ has seen contributions from:
 3. {Erik Hollensbe}[http://github.com/erikh] a serious refactoring and up to
    date with RDoc 2.5.x and 3.x, now named 'hanna-nouveau'.
 4. {James Tucker}[http://github.com/raggi] minor cleanups for Erik.
+5. {Jeremy Evans}[http://github.com/jeremyevans] RDoc 4 support, maintenance
+   since 2014.
 
 == Usage
 
@@ -29,7 +30,7 @@ An alternative is to set the `RDOCOPT` environment variable:
 
     RDOCOPT="-f hanna"
 
-This will make RDoc always use Hanna unless it is explicitly overridden.
+This will make RDoc always use hanna-nouveau unless it is explicitly overridden.
 
 == Integrating with RubyGems
 
