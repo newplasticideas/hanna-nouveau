@@ -80,16 +80,10 @@ library}[http://github.com/rdbi/rdbi/tree/master/Rakefile]:
       rdoc.rdoc_files.include('lib/**/*.rb')
     end
 
-== Modifications to RDoc
+== Modification to RDoc
 
-Hanna makes some small modifications to RDoc to generate more
-friendly documentation.  First, a real parser is used for all
-verbatim sections, and any verbatim section that is valid ruby
-code will be highlighted. This is different than the RDoc
-default, which is to use a simple regexp with both false
-positives and false negatives.
-
-Second, label lists are marked using a table instead of a
-description list, since it is very difficult to get visually
-appealing styling for description lists without cutting
-corners (like using fixed widths).
+Hanna makes a small modification to RDoc to generate more
+friendly documentation.  It changes label lists to use a table
+instead of a description list, since it is very difficult to
+get visually appealing styling for description lists without
+cutting corners (like using fixed widths).

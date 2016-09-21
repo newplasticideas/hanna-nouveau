@@ -42,12 +42,6 @@ class RDoc::Markup::ToHtml
       raise RDoc::Error, "Invalid list type: #{list_type.inspect}"
     end
   end
-
-  def parseable? text
-    eval("BEGIN {return true}\n#{text}")
-  rescue SyntaxError
-    false
-  end
 end
 
 class RDoc::Generator::Hanna 
