@@ -30,9 +30,10 @@ Gem::Specification.new do |s|
   ]
   s.homepage = "https://github.com/rdoc/hanna-nouveau"
   s.licenses = ["MIT"]
-  s.summary = "A rework of the Hanna generator for RDoc 4"
+  s.summary = "A rework of the Hanna generator for RDoc 4+"
 
-  s.add_dependency('haml', ["= 3.0.25"])
-  s.add_dependency('rdoc', ["~> 4.0"])
+  s.add_dependency('haml', [">= 4"])
+  s.add_dependency('sass')
+  s.add_dependency('rdoc', [">= 4.0"])
 end
 
