@@ -316,7 +316,7 @@ class RDoc::Generator::Hanna
     class_attr = classname ? ' class="%s"' % classname : ''
 
     if url
-        %[<a target="docwin" href="#{url}"#{class_attr}>#{text}</a>]
+        %[<a href="#{url}"#{class_attr}>#{text}</a>]
     elsif classname
         %[<span#{class_attr}>#{text}</span>]
     else
