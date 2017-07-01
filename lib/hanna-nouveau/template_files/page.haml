@@ -29,7 +29,7 @@
   - if !file_page && values[:entry].type == "class"
     .parent
       Superclass:
-      - if values[:entry].superclass.kind_of?(String)
+      - if values[:entry].superclass.kind_of?(String) || !values[:entry].superclass
         %strong= values[:entry].superclass
       - else
         %strong= link_to values[:entry].superclass.name, Pathname.new(class_dir) + Pathname.new(values[:entry].superclass.path).relative_path_from(Pathname.new values[:entry].path)
