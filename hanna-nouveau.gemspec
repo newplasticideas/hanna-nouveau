@@ -2,14 +2,12 @@ Gem::Specification.new do |s|
   s.name = "hanna-nouveau"
   s.version = File.read(File.expand_path("../VERSION", __FILE__))
   s.authors = ["Jeremy Evans", "Erik Hollensbe", "James Tucker", "Mislav Marohnic"]
-  s.description = ""
   s.email = "code@jeremyevans.net"
   s.extra_rdoc_files = [
     "LICENSE",
     "README.rdoc"
   ]
   s.files = [
-    "Gemfile",
     "LICENSE",
     "README.rdoc",
     "Rakefile",
@@ -30,10 +28,16 @@ Gem::Specification.new do |s|
   ]
   s.homepage = "https://github.com/rdoc/hanna-nouveau"
   s.licenses = ["MIT"]
-  s.summary = "A rework of the Hanna generator for RDoc 4+"
+  s.summary = "RDoc generator designed with simplicity, beauty and ease of browsing in mind"
+  s.description = <<END
+RDoc generator designed with simplicity, beauty and ease of browsing in mind
+
+Based on the original Hanna by Mislav, with many changes so it works
+on modern verions of RDoc, Haml, and Sass.
+END
 
   s.add_dependency('haml', [">= 4"])
   s.add_dependency('sass')
-  s.add_dependency('rdoc', [">= 4.0"])
+  s.add_dependency('rdoc', [">= 4"])
 end
 
