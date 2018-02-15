@@ -1,12 +1,12 @@
-= Hanna Nouveau — a better RDoc template, now for RDoc 4.
+= Hanna-nouveau
 
 Based on the original Hanna by Mislav.
 
-Hanna is an RDoc generator that scales. It's implemented in Haml, making the
-sources clean and readable. It's built with simplicity, beauty and ease of
-browsing in mind.
+Hanna-nouveau is an RDoc generator that scales. It's implemented in Haml,
+making the sources clean and readable. It's built with simplicity, beauty
+and ease of browsing in mind.
 
-Hanna gem is available from http://rubygems.org:
+Hanna-nouveau is distributed as a ruby gem:
 
     gem install hanna-nouveau
 
@@ -24,7 +24,7 @@ has seen contributions from:
 
 == Usage
 
-    rdoc -o doc -f hanna lib/*.rb
+    rdoc -o doc -f hanna lib
 
 An alternative is to set the `RDOCOPT` environment variable:
 
@@ -56,10 +56,7 @@ add the hanna format argument to your RDoc::Task options:
     gem 'rdoc'
     require 'rdoc/task'
     RDoc::Task.new do |rdoc|
-      # this only works with RDoc 3.1 or greater
       rdoc.generator = 'hanna'
-      # this is what you use pre RDoc 3.1:
-      rdoc.options.push '-f', 'hanna'
     end
 
 Tip: you can do this in the Rakefile of your Rails project before running
