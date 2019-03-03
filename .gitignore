@@ -2,3 +2,4 @@
 *.gem
 sample
 *.rbc
+.idea
