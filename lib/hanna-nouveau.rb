@@ -236,12 +236,22 @@ class RDoc::Generator::Hanna
   end
 
   def sanitize_code_blocks(text)
+
+    if text =~ /\<p\>|\<\/p\>/
+      text.gsub!(/\<p\>|\<\/p\>/, '')
+    end
+
+    if text =~ /\<strong\>/
+      text = text.split("\n")
+      i = text.index{|e| e =~ /\<strong\>/ }
+      text = text[i+1..-1].join("\n")
+    end
+
     text.gsub(/<pre>(.+?)<\/pre>/m) do
       code = $1.sub(/^\s*\n/, '')
       indent = code.gsub(/\n[ \t]*\n/, "\n").scan(/^ */).map{ |i| i.size }.min
       code.gsub!(/^#{' ' * indent}/, '') if indent > 0
-
-        "<pre>#{code}</pre>"
+      "#{code}"
     end
   end
 

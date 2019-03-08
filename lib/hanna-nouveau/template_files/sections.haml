@@ -59,7 +59,6 @@
         - method_types.each do |type, list|
           - unless list.empty?
             %h2== #{type} methods
-            
             - list.each do |method|
               .method{ :id => "method-#{method.aref}", :class => "#{type.gsub(/\s+/, '-')}".downcase }
                 %a{ :name => method.aref }
@@ -70,16 +69,14 @@
                         - method.call_seq.split(/\r?\n/).each do |seq|
                           %div=seq
                     - else
-                      %span.name= method.name
-                      %span.arguments= method.params
-                  -#- if method[:codeurl]
-                    -#%a.method-signature{ :href => method[:codeurl], :onclick => "popupCode(this.href); return false", :target => "Code" }
-                      -#= method_html
-                  -#- else
+                      - first_line = method.text.scan(/(\#.*)/).first
+                      %span.name= first_line.is_a?(Array) ? first_line.first : first_line
+
                   = method_html
                 - if method.description
-                  .source
+                  .description
                     - name = "#{method.aref}-source"
                     %a.source-toggle{ :href => "#", :onclick => "toggleCode('#{name}'); return false" }
-                      [show http examples]
-                    ~ "<pre id='#{name}'>#{method.description}</pre>"
+                      [show json]
+                    %pre{:id => name, :style => 'display: none'}
+                      ~ sanitize_code_blocks method.description
