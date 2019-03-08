@@ -24,7 +24,7 @@ class RDoc::Markup::ToHtml
   def list_item_start(list_item, list_type)
     case list_type
     when :BULLET, :LALPHA, :NUMBER, :UALPHA then
-      "<li>"
+      '<li>'
     when :LABEL, :NOTE then
       "<tr><td class='label'>#{Array(list_item.label).map{|label| to_html(label)}.join("<br />")}</td><td>"
     else
@@ -35,9 +35,9 @@ class RDoc::Markup::ToHtml
   def list_end_for(list_type)
     case list_type
     when :BULLET, :LALPHA, :NUMBER, :UALPHA then
-      "</li>"
+      '</li>'
     when :LABEL, :NOTE then
-      "</td></tr>"
+      '</td></tr>'
     else
       raise RDoc::Error, "Invalid list type: #{list_type.inspect}"
     end
@@ -255,6 +255,18 @@ class RDoc::Generator::Hanna
     end
   end
 
+  def generate_container_for(text, type, element)
+    selection = text.gsub("\n", '{{{{{this_is_a_new_line}}}}}')
+    selection = selection.scan(%r{<#{type}>.*</#{type}\>})
+    selection = selection.is_a?(Array) ? selection[0] : selection
+
+    selection.gsub!(%r{<#{type}>|</#{type}>}, '')
+    selection.gsub!('#', '')
+    selection.gsub!('{{{{{this_is_a_new_line}}}}}', "\n")
+    selection.gsub!(%r{\n\ *\n\ *}, "\n\n")
+    "<#{element} class='#{type}-container'>#{selection}</#{element}>"
+  end
+
   # probably should bring in nokogiri/libxml2 to do this right.. not sure if
   # it's worth it.
   def frame_link(content)
@@ -318,7 +330,7 @@ class RDoc::Generator::Hanna
                       "module: '#{module_name.downcase}', " +
                       "html: '#{html}' },\n"
     end
-    result << "]"
+    result << ']'
     result
   end
 
