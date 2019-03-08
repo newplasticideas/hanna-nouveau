@@ -39,6 +39,6 @@ END
   s.add_dependency('haml', [">= 4"])
   s.add_dependency('sass')
   s.add_dependency('rdoc', [">= 4"])
-  s.add_dependency('pry')
+  s.add_development_dependency('pry')
 end
 
