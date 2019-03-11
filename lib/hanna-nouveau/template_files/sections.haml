@@ -69,8 +69,9 @@
                         - method.call_seq.split(/\r?\n/).each do |seq|
                           %div=seq
                     - else
-                      - first_line = method.text.scan(/(\#.*)/).first
-                      %span.name= first_line.is_a?(Array) ? first_line.first : first_line
+                      %span.name
+                        - if is_documented?(method)
+                          ~ generate_container_for(method.text, "route", "div")
 
                   = method_html
                 .description
@@ -79,7 +80,7 @@
                   - name = "#{method.aref}-source"
                   %a.source-toggle{ :href => "#", :onclick => "toggleCode('#{name}'); return false" }
                     [show json]
-                  %pre{:id => name, :style => 'display: none'}
+                  %pre{:id => name}
                     - if is_documented?(method)
                       ~ generate_container_for(method.text, 'description', 'div')
 

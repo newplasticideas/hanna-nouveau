@@ -132,8 +132,8 @@ class RDoc::Generator::Hanna
     File.open(outjoin(INDEX_OUT), 'w') { |f| f << haml_file(templjoin(INDEX_PAGE)).to_html(binding) }
 
     generate_index(FILE_INDEX_OUT,   FILE_INDEX,   'File',   { :files => @files})
-    generate_index(CLASS_INDEX_OUT,  CLASS_INDEX,  'Class',  { :classes => @classes })
-    generate_index(METHOD_INDEX_OUT, METHOD_INDEX, 'Method', { :methods => @methods, :attributes => @attributes })
+    # generate_index(CLASS_INDEX_OUT,  CLASS_INDEX,  'Class',  { :classes => @classes })
+    # generate_index(METHOD_INDEX_OUT, METHOD_INDEX, 'Method', { :methods => @methods, :attributes => @attributes })
   end
 
   def generate_index(outfile, templfile, index_name, values)
@@ -250,8 +250,8 @@ class RDoc::Generator::Hanna
 
     if text =~ /\<strong\>/
       text = text.split("\n")
-      i = text.index{|e| e =~ /\<strong\>/ }
-      text = text[i+1..-1].join("\n")
+      i = text.index{|e| e =~ /\<strong\>/ } + 1
+      text = text[i..-1].join("\n")
     end
 
     text.gsub(/<pre>(.+?)<\/pre>/m) do
@@ -263,17 +263,20 @@ class RDoc::Generator::Hanna
   end
 
   def generate_container_for(text, type, element)
-    selection = text.gsub("\n", '{{{{{this_is_a_new_line}}}}}')
-    selection = selection.scan(%r{<#{type}>.*</#{type}\>})
-    selection = selection.is_a?(Array) ? selection[0] : selection
+    @type = type
+    @selection = text.gsub("\n", '{{{{{this_is_a_new_line}}}}}')
+    @selection = @selection.scan(%r{<#{type}>.*</#{type}\>})
+    @selection = @selection.is_a?(Array) ? @selection[0] : @selection
 
-    selection.gsub!(%r{<#{type}>|</#{type}>}, '')
-    selection.gsub!('#', '')
-    selection.gsub!('{{{{{this_is_a_new_line}}}}}', "\n")
-    selection.gsub!(%r{\n\ *\n\ *}, "\n\n")
-    selection.gsub!(/\ {6}/, '')
+    @selection.gsub!(%r{<#{type}>|</#{type}>}, '')
+    @selection.gsub!('#', '')
+    @selection.gsub!('{{{{{this_is_a_new_line}}}}}', "\n")
+    @selection.gsub!(%r{\n\ *\n\ *}, "\n\n")
+    @selection.gsub!(/\ {6}/, '')
 
-    "<#{element} class='#{type}-container'>#{selection}</#{element}>"
+
+    sanitize_title!
+    "<#{element} class='#{type}-container'>#{@selection}</#{element}>"
   end
 
   def is_documented?(method)
@@ -286,6 +289,13 @@ class RDoc::Generator::Hanna
 
   def has_request_body?(method)
     (method.text =~ %r{<request>.*</request\>}).nil? ? false : true
+  end
+
+  def sanitize_title!
+    return unless @selection =~ /\#/
+
+    i = @selection.index{|e| e =~ /(\#)(?=\ \w)/ } + 1
+    @selection = @selection[i..-1]
   end
 
   # probably should bring in nokogiri/libxml2 to do this right.. not sure if
