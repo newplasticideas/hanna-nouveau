@@ -271,6 +271,7 @@ class RDoc::Generator::Hanna
     selection.gsub!('#', '')
     selection.gsub!('{{{{{this_is_a_new_line}}}}}', "\n")
     selection.gsub!(%r{\n\ *\n\ *}, "\n\n")
+    selection.gsub!(/\ {6}/, '')
 
     "<#{element} class='#{type}-container'>#{selection}</#{element}>"
   end

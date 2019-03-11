@@ -81,7 +81,7 @@
                     [show json]
                   %pre{:id => name, :style => 'display: none'}
                     - if is_documented?(method)
-                      ~ generate_container_for(method.text, 'response', 'div')
+                      ~ generate_container_for(method.text, 'description', 'div')
 
                 -#.request
                 -#  - if has_request_body?(method)
