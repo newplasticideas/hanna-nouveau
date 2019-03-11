@@ -5,6 +5,7 @@
     %title= values[:title]
     %meta{ 'http-equiv' => "Content-Type", :content => "text/html; charset=#{@options.charset}" }
     %link{ :rel => "stylesheet", :href => values[:stylesheet], :type => "text/css", :media => "screen" }
+    %link{ :rel => "stylesheet", :href => "https://fonts.googleapis.com/css?family=Roboto" }
     - unless index
       :javascript
         function popupCode(url) {
@@ -20,7 +21,7 @@
 
     - else
       %base{ :target => 'docwin' }/
-        
+
   %body{ :class => index ? 'list' : 'page' }
     - if index
       #index= yield

@@ -1,5 +1,5 @@
-$title_font: Georgia, serif
-$body_font: unquote("Lucida Grande"), Verdana, Arial, Helvetica, sans-serif
+$title_font: Roboto, sans-serif
+$body_font: Roboto, sans-serif
 $code_font_family: Monaco, unquote("DejaVu Sans Mono"), unquote("Bitstream Vera Sans Mono"), unquote("Courier New"), monospace
 $code_font_size: 14px
 $code_font: $code_font_size $code_font_family
@@ -18,7 +18,7 @@ body
   margin: 0
   padding: 0
   background: white
-  color: black
+  color: #444444
 
 #wrapper
   min-height: 100%
@@ -30,7 +30,7 @@ body
   height: 43px
 
 div.header, #footer
-  background: #eeeeee
+  background: #f9f9f9
 
 #footer
   border-top: 1px solid silver
@@ -105,6 +105,9 @@ table
   tr
     border-bottom: 1px solid silver
 
+body.list
+  background: #fafcfc
+
 #index, div.header
   a.show
     text-decoration: underline
@@ -117,15 +120,15 @@ table
       background: #ffffee
 
 #index
-  font: 85% / 1.2 Arial, Helvetica, sans-serif
+  font-family: $body_font
+  padding-top: 5px
   a
     text-decoration: none
   h1
-    padding: 0.2em 0.5em 0.1em
-    background: #cccccc
-    font: unquote("small-caps 1.2em") $title_font
-    color: #333333
-    border-bottom: 1px solid gray
+    font-size: 12px
+    padding: 8px 20px 5px
+    text-transform: uppercase
+    color: $light_text
   form
     margin: 0
     padding: 0
@@ -142,11 +145,20 @@ table
       padding: 0 5px 1px 5px
       cursor: pointer
   ol
-    padding: 0.4em 0.5em
+    padding: 8px 0
     li
       white-space: nowrap
-  #index-entries li a
-    padding: 1px 2px
+      a
+        position: relative
+        display: block
+        font-size: 14px
+        font-weight: 300
+        padding: 5px 15px
+        padding-left: 20px
+        line-height: 24px
+        color: #444444
+      a:hover
+        background: F0F0F0
   #index-entries.classes
     font-size: 1.1em
     ol
@@ -176,7 +188,7 @@ div.header
   font-size: 80%
   padding: 0.5em 2%
   font-family: Arial, Helvetica, sans-serif
-  border-bottom: 1px solid silver
+  border-bottom: 1px solid #eeeeee
   .name
     font-size: 1.6em
     font-family: $title_font
@@ -185,7 +197,7 @@ div.header
       font-size: 80%
       font-variant: small-caps
   h1.name
-    font-size: 2.2em
+    font-size: 11px
   .paths, .last-update, .parent
     color: $light_text
   .last-update .datetime
@@ -238,11 +250,11 @@ div.header
       padding-bottom: 0.1em
     h2
       font-size: 1.8em
-      color: $dark_blue_text
-      margin: 0.8em 0 0.3em 0
+      color: #292929
+      margin: 0.3em 0 0.8em 0
     h3
       font-size: 1.6em
-      margin: 0.8em 0 0.3em 0
+      margin: 0.8em 0 0.8em 0
       color: $light_text
     h4
       font-size: 1.4em
