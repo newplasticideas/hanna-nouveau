@@ -3,7 +3,7 @@
 
 %ol#index-entries{ :class => 'files' }
   - values[:files].each do |file|
-    - hide = file.name =~ /\.rb$/
+    - hide = false
     - any_hidden = true if hide
     %li{ :class => hide ? 'other' : nil }= link_to file.name, file.path
 
