@@ -4,8 +4,8 @@ $code_font_family: Monaco, unquote("DejaVu Sans Mono"), unquote("Bitstream Vera 
 $code_font_size: 14px
 $code_font: $code_font_size $code_font_family
 
-$light_link: #336699
-$link: #0b3e71
+$light_link: #008ead
+$link: #00739c
 $light_text: #666666
 $dark_blue_text: #0e3062
 
@@ -30,10 +30,10 @@ body
   height: 43px
 
 div.header, #footer
-  background: #f9f9f9
+  background: #fafcfc
 
 #footer
-  border-top: 1px solid silver
+  border-top: 1px solid #f0f4f4
   margin-top: 12px
   padding: 0 2em
   line-height: 30px
@@ -59,11 +59,11 @@ h1, h2, h3, h4, h5, h6
   font-weight: normal
 
 a
-  color: $link
+  color: $light_link
+  text-decoration: none
   &:hover
-    background: $light_link
-    text-decoration: none
-    color: #eeeeff
+    text-decoration: underline
+    color: $link
 
 #diagram
   img
@@ -73,10 +73,10 @@ a
   a
     color: $light_link
     &:hover
-      color: #eeeeee
+      color: $link
   h1, h2, h3, h4, h5, h6
     a
-      color: $link
+      color: $light_link
 
 ol
   margin: 0
@@ -107,6 +107,7 @@ table
 
 body.list
   background: #fafcfc
+  border-right: 1px solid #f0f4f4
 
 #index, div.header
   a.show
@@ -158,7 +159,7 @@ body.list
         line-height: 24px
         color: #444444
       a:hover
-        background: F0F0F0
+        background: #F0F0F0
   #index-entries.classes
     font-size: 1.1em
     ol
@@ -188,7 +189,7 @@ div.header
   font-size: 80%
   padding: 0.5em 2%
   font-family: Arial, Helvetica, sans-serif
-  border-bottom: 1px solid #eeeeee
+  border-bottom: 1px solid #f0f4f4
   .name
     font-size: 1.6em
     font-family: $title_font

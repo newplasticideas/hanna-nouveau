@@ -3,7 +3,7 @@
   %head
     %title= @options.title
     %meta{ :content => "text/html; charset=#{@options.charset}", "http-equiv" => "Content-Type" }
-  %frameset{ :cols => "20%, *", :border => "1", :frameborder => "1", :bordercolor => "gray" }
+  %frameset{ :cols => "20%, *", :border => "0", :frameborder => "0", :bordercolor => "gray" }
     %frameset{ :rows => "100%" }
       %frame{ :name => "Files", :title => "Files", :src => "fr_file_index.html" }
       %frame{ :name => "Classes", :src => "fr_class_index.html" }
