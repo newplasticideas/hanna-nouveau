@@ -132,8 +132,8 @@ class RDoc::Generator::Hanna
     File.open(outjoin(INDEX_OUT), 'w') { |f| f << haml_file(templjoin(INDEX_PAGE)).to_html(binding) }
 
     generate_index(FILE_INDEX_OUT,   FILE_INDEX,   'File',   { :files => @files})
-    # generate_index(CLASS_INDEX_OUT,  CLASS_INDEX,  'Class',  { :classes => @classes })
-    # generate_index(METHOD_INDEX_OUT, METHOD_INDEX, 'Method', { :methods => @methods, :attributes => @attributes })
+    generate_index(CLASS_INDEX_OUT,  CLASS_INDEX,  'Class',  { :classes => @classes })
+    generate_index(METHOD_INDEX_OUT, METHOD_INDEX, 'Method', { :methods => @methods, :attributes => @attributes })
   end
 
   def generate_index(outfile, templfile, index_name, values)
