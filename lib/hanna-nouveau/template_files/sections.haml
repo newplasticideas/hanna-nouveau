@@ -73,10 +73,22 @@
                       %span.name= first_line.is_a?(Array) ? first_line.first : first_line
 
                   = method_html
-                - if method.description
-                  .description
-                    - name = "#{method.aref}-source"
-                    %a.source-toggle{ :href => "#", :onclick => "toggleCode('#{name}'); return false" }
-                      [show json]
-                    %pre{:id => name, :style => 'display: none'}
-                      ~ sanitize_code_blocks method.description
+                .description
+                  -#- if is_documented?(method)
+                  -#  ~ generate_container_for(method.text, 'description', 'div')
+                  - name = "#{method.aref}-source"
+                  %a.source-toggle{ :href => "#", :onclick => "toggleCode('#{name}'); return false" }
+                    [show json]
+                  %pre{:id => name, :style => 'display: none'}
+                    - if is_documented?(method)
+                      ~ generate_container_for(method.text, 'response', 'div')
+
+                -#.request
+                -#  - if has_request_body?(method)
+                -#    ~ generate_container_for(method.text, 'request', 'div')
+                -#  - name = "#{method.aref}-source"
+                -#  %a.source-toggle{ :href => "#", :onclick => "toggleCode('#{name}'); return false" }
+                -#    [show json]
+                -#  %pre{:id => name, :style => 'display: none'}
+                -#    - if is_documented?(method)
+                -#      ~ generate_container_for(method.text, 'response', 'div')

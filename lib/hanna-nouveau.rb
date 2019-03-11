@@ -21,6 +21,13 @@ class RDoc::Markup::ToHtml
   LIST_TYPE_TO_HTML[:LABEL] = ['<table class="rdoc-list label-list"><tbody>', '</tbody></table>']
   LIST_TYPE_TO_HTML[:NOTE]  = ['<table class="rdoc-list note-list"><tbody>',  '</tbody></table>']
 
+  # CONTAINER_TAGS = {
+  #     route:       "<route>",
+  #     request:     "<request>",
+  #     response:    "<response>",
+  #     description: "<description>"
+  # }.with_indifferent_access.freeze
+
   def list_item_start(list_item, list_type)
     case list_type
     when :BULLET, :LALPHA, :NUMBER, :UALPHA then
@@ -264,7 +271,20 @@ class RDoc::Generator::Hanna
     selection.gsub!('#', '')
     selection.gsub!('{{{{{this_is_a_new_line}}}}}', "\n")
     selection.gsub!(%r{\n\ *\n\ *}, "\n\n")
+
     "<#{element} class='#{type}-container'>#{selection}</#{element}>"
+  end
+
+  def is_documented?(method)
+    (method.text =~ regex_tag_scanner).nil? ? false : true
+  end
+
+  def regex_tag_scanner
+    %r{<description>.*</description\>|<route>.*</route\>|<response>.*</response\>|<request>.*</request\>}
+  end
+
+  def has_request_body?(method)
+    (method.text =~ %r{<request>.*</request\>}).nil? ? false : true
   end
 
   # probably should bring in nokogiri/libxml2 to do this right.. not sure if

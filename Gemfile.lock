@@ -3,6 +3,7 @@ PATH
   specs:
     hanna-nouveau (1.0.3)
       haml (>= 4)
+      pry
       rdoc (>= 4)
       sass
 
@@ -35,7 +36,6 @@ PLATFORMS
 
 DEPENDENCIES
   hanna-nouveau!
-  pry
 
 BUNDLED WITH
    1.16.5

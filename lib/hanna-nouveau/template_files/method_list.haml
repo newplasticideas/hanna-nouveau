@@ -27,6 +27,8 @@
                 %li= link_to method.name, "#method-#{method.html_name}"
               - else
                 %li= method.name
+              - if is_documented?(method)
+                ~ generate_container_for(method.text, 'description', 'p')
 
 - if entry.requires or sections or entry.includes
   #context
