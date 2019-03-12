@@ -90,5 +90,6 @@
                   %h3.params-title Example Response
                   - name = "#{method.aref}-source"
                   %pre{:id => name}
-                    - if is_documented?(method)
-                      ~ generate_container_for(method.text, 'response', 'div')
+                    %code{:class => "json"}
+                      - if is_documented?(method)
+                        ~ generate_container_for(method.text, 'response', 'div')
