@@ -324,13 +324,14 @@ div.header
   .method
     margin-top: 0.5em
     .synopsis
-      padding: 0.2em 1em
+      padding: 0em 1em
+      margin-bottom: 20px
       .name
-        font-weight: bold
+        // font-weight: bold
       a
         text-decoration: none
     .description
-      padding: 0 1em
+      padding: 0 1em 10px 1em
       pre
         background: #f8f8f8
     .source
@@ -341,7 +342,11 @@ div.header
   .public-class
     background: #ffffe4
   .public-instance .synopsis
-    color: #eeeeee
+    color: #292929
+    .name
+      font-family: $title_font
+      font-size: 24px
+      line-height: 32px
 
 #content .method .source pre, #content pre.ruby, #methods .method .description pre.ruby
   background: #262626
@@ -381,3 +386,7 @@ div.header
   .ruby-value
     color: #7fffd4
     background: transparent
+
+// Custom elements
+div.params, div.route, div.response
+  padding: 15px 1em

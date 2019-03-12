@@ -9,11 +9,11 @@
   - constants, attributes, alias_types, method_types = h.values_at(:constants, :attributes, :alias_types, :method_types)
   #section
     - if section.title.to_s != ''
-      %h2 
+      %h2
         %a{ :name =>section.aref }= section.title
         - if section.comment
           .section-comment= section.description
-        
+
     - unless constants.empty?
       #constants-list
         %h2 Constants
@@ -27,7 +27,7 @@
                 - if const.description then
                   %td &nbsp;
                   %td.context-item-desc= const.description
-                    
+
     - unless alias_types.empty?
       - alias_types.each do |type, aliases|
         #aliases-list
@@ -41,7 +41,7 @@
                   %td.context-item-value= link_to alia.is_alias_for.name, "##{alia.is_alias_for.aref}"
                   - unless alia.description.empty?
                     %td.context-item-desc= alia.description
-                    
+
     - unless attributes.empty?
       #attribute-list
         %h2.section-bar Attributes
@@ -53,12 +53,12 @@
                   %a{:name => attrib.aref}=attrib.name
                 %td.context-item-value= attrib.rw ? "[#{attrib.rw}]" : '&nbsp;'
                 %td.context-item-desc~ sanitize_code_blocks(attrib.description)
-    
+
     - unless method_types.empty?
       #methods
         - method_types.each do |type, list|
           - unless list.empty?
-            %h2== #{type} methods
+            -# %h2== #{type} methods
             - list.each do |method|
               .method{ :id => "method-#{method.aref}", :class => "#{type.gsub(/\s+/, '-')}".downcase }
                 %a{ :name => method.aref }
@@ -71,74 +71,24 @@
                     - else
                       %span.name
                         - if is_documented?(method)
-                          ~ generate_container_for(method.text, "route", "div")
+                          ~ generate_container_for(method.text, "heading", "div")
 
                   = method_html
                 .description
+                  - if is_documented?(method)
+                    ~ generate_container_for(method.text, 'description', 'div')
+                .params
+                  - if is_documented?(method)
+                    %h3.params-title Attributes
+                    ~ generate_container_for(method.text, 'params', 'div')
+                .route
+                  - if is_documented?(method)
+                    ~ generate_container_for(method.text, 'route', 'div')
+                .response
                   -#- if is_documented?(method)
                   -#  ~ generate_container_for(method.text, 'description', 'div')
+                  %h3.params-title Example Response
                   - name = "#{method.aref}-source"
-                  %a.source-toggle{ :href => "#", :onclick => "toggleCode('#{name}'); return false" }
-                    [show json]
                   %pre{:id => name}
                     - if is_documented?(method)
-                      ~ generate_container_for(method.text, 'description', 'div')
-
-
-                  - entry = values[:entry]
-                  - sections = values[:sections].keys if values.has_key?(:sections)
-                  - methods = entry.method_list + entry.attributes
-                  - unless methods.empty?
-                    %h2 Response:
-                    - %w[attr attr_accessor attr_reader attr_writer class instance].each do |type|
-                      - (RDoc::VISIBILITIES rescue RDoc::Context::VISIBILITIES).each do |vis|
-                        -# FIXME ugly
-                        - list = methods.reject { |x| x.respond_to?(:is_alias_for) && x.is_alias_for }.select { |x| x.visibility == vis && x.type == type.to_s }.sort
-                        - unless list.empty?
-                          - type_result = ""
-                          - if type =~ /^attr_/
-                            - type_result += type.sub(/^attr_/, '').capitalize
-                          - else
-                            - type_result += type.capitalize
-                          - type_result = "#{vis.to_s.capitalize} #{type_result}"
-                          - list.each do |method|
-                            - if is_documented?(method)
-                              ~ generate_container_for(method.text, 'response', 'pre')
-
-                - if entry.requires or sections or entry.includes
-                  #context
-                    - unless entry.requires.empty?
-                      #requires
-                        %h2 Required files
-                        %ol
-                          - entry.requires.each do |req|
-                            %li= req.name
-
-                    - if sections && (sections.length > 1 || sections.first.title.to_s != '')
-                      #contents
-                        %h2 Contents
-                        %ol
-                          - sections.sort_by{|s| s.title.to_s}.each do |section|
-                            %li= link_to section.title, "##{section.aref}"
-
-                    - unless entry.includes.empty?
-                      #includes
-                        %h2 Included modules
-                        %ol
-                          - entry.includes.each do |inc|
-                            - if (mod = inc.module).is_a?(String)
-                              %li= inc.name
-                            - else
-                              %li= link_to inc.name, entry.aref_to(mod.path)
-
-
-
-                -#.request
-                -#  - if has_request_body?(method)
-                -#    ~ generate_container_for(method.text, 'request', 'div')
-                -#  - name = "#{method.aref}-source"
-                -#  %a.source-toggle{ :href => "#", :onclick => "toggleCode('#{name}'); return false" }
-                -#    [show json]
-                -#  %pre{:id => name, :style => 'display: none'}
-                -#    - if is_documented?(method)
-                -#      ~ generate_container_for(method.text, 'response', 'div')
+                      ~ generate_container_for(method.text, 'response', 'div')

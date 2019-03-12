@@ -275,7 +275,7 @@ class RDoc::Generator::Hanna
   end
 
   def regex_tag_scanner
-    %r{<description>.*</description\>|<route>.*</route\>|<response>.*</response\>|<request>.*</request\>}
+    %r{<description>.*</description\>|<heading>.*</heading\>|<params>.*</params\>|<route>.*</route\>|<response>.*</response\>|<request>.*</request\>}
   end
 
   def has_request_body?(method)
