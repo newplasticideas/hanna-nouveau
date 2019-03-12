@@ -82,8 +82,12 @@
                     %h3.params-title Attributes
                     ~ generate_container_for(method.text, 'params', 'div')
                 .route
-                  - if is_documented?(method)
-                    ~ generate_container_for(method.text, 'route', 'div')
+                  %h3.params-title Route
+                  - name = "#{method.aref}-source"
+                  %pre{:id => name}
+                    %code{:class => "http"}
+                      - if is_documented?(method)
+                        ~ generate_container_for(method.text, 'route', 'div')
                 .response
                   -#- if is_documented?(method)
                   -#  ~ generate_container_for(method.text, 'description', 'div')
