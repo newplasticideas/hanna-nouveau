@@ -254,24 +254,84 @@ class RDoc::Generator::Hanna
     end
   end
 
-  def generate_container_for(text, type, element)
-    @type = type
-    @selection = text.gsub("\n", '{{{{{this_is_a_new_line}}}}}')
-    @selection = @selection.scan(%r{<#{type}>.*</#{type}\>})
-    @selection = @selection.is_a?(Array) ? @selection[0] : @selection
+  def generate_container_for(method, type, element)
+    text = method.gsub("\n", '{{{{{this_is_a_new_line}}}}}')
+    text = text.scan(%r{<#{type}>.*</#{type}\>})
+    text = text.is_a?(Array) ? text[0] : text
 
-    @selection.gsub!(%r{<#{type}>|</#{type}>}, '')
-    @selection.delete!('#')
-    @selection.gsub!('{{{{{this_is_a_new_line}}}}}', "\n")
-    @selection.gsub!(/\n\ *\n\ */, "\n\n")
-    @selection.gsub!(/\ {6}/, '')
+    text.gsub!(%r{<#{type}>|</#{type}>}, '')
+    text.delete!('#')
+    text.gsub!('{{{{{this_is_a_new_line}}}}}', "\n")
+    text.gsub!(/\n\ *\n\ */, "\n\n")
+    text.gsub!(/\ {6}/, '')
 
-    sanitize_title!
-    "<#{element} class='#{type}-container'>#{@selection}</#{element}>"
+    # bespoke_element_generator(method, text, type, element)
+    "<#{element} class='#{type}-container'>#{text}</#{element}>"
   end
 
-  def is_documented?(method)
-    (method.text =~ regex_tag_scanner).nil? ? false : true
+  def bespoke_element_generator(method, text, type, element)
+    tag = case type
+          when "description"
+            "
+              <div class='#{type}'>
+                <#{element} class='#{type}-container'>
+                  #{text}
+                </#{element}>
+              </div>
+            "
+          when "params"
+            "
+              <div class='params'>
+                <h3 class='params-title'>
+                  Attributes
+                </h3>
+                <#{element} class='#{type}-container'>
+                  #{text}
+                </#{element}>
+              </div>
+            "
+          when "route"
+            "
+              <div class='#{type}'>
+                <h3 class='params-title'
+                  Route
+                </h3>
+                <pre id='#{method.aref}'>
+                  <code class='http'>
+                    <#{element} class='#{type}-container'>
+                      #{text}
+                    </#{element}>
+                  </code>
+                </pre>
+              </div>
+            "
+          when "response"
+            "
+              <div class='response'>
+                <h3 class='params-title'>
+                  Example Response
+                </h3>
+                <pre id='#{method.aref}-source'>
+                  <code class='json'>
+                    <div class='response-container'
+                      #{text}
+                    </div>
+                </pre>
+              </div>
+            "
+          end
+    tag
+
+
+    # "<#{element} class='#{type}-container'>#{text}</#{element}>"
+  end
+
+  def is_documented?(method, type=nil)
+    if type
+      (method.text =~ %r{<#{type}>|</#{type}>}).nil? ? false : true
+    else
+      (method.text =~ regex_tag_scanner).nil? ? false : true
+    end
   end
 
   def regex_tag_scanner
@@ -282,22 +342,23 @@ class RDoc::Generator::Hanna
     (method.text =~ %r{<request>.*</request\>}).nil? ? false : true
   end
 
-  # def has_heading?(method)
-  #   (method.text =~ %r{<heading>.*</heading\>}).nil? ? false : true
-  # end
-  #
-  # def has_response_body?
-  #
-  # end
-  #
-  # def type_element_pairs
-  #   [
-  #     %w[description div],
-  #     %w[params div],
-  #     %w[route div],
-  #     %w[request pre]
-  #   ].freeze
-  # end
+  def has_heading?(method)
+    (method.text =~ %r{<heading>.*</heading\>}).nil? ? false : true
+  end
+
+  def has_response_body?
+    (method.text =~ %r{<response>.*</response\>}).nil? ? false : true
+  end
+
+  def type_element_pairs
+    [
+      %w[description div],
+      %w[params div],
+      %w[route div],
+      %w[request pre],
+      %w[response div]
+    ].freeze
+  end
 
   def sanitize_title!
     return unless @selection =~ /\#/

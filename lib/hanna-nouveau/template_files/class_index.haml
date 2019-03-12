@@ -1,3 +1,4 @@
-%h1= values[:list_title]
+%a{:href => 'index.html'}
+  %h1 Endpoints
 %ol#index-entries.classes
   = render_class_tree values[:classes].select { |x| x.full_name =~ /controller/i }
