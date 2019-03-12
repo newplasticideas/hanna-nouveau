@@ -282,6 +282,23 @@ class RDoc::Generator::Hanna
     (method.text =~ %r{<request>.*</request\>}).nil? ? false : true
   end
 
+  # def has_heading?(method)
+  #   (method.text =~ %r{<heading>.*</heading\>}).nil? ? false : true
+  # end
+  #
+  # def has_response_body?
+  #
+  # end
+  #
+  # def type_element_pairs
+  #   [
+  #     %w[description div],
+  #     %w[params div],
+  #     %w[route div],
+  #     %w[request pre]
+  #   ].freeze
+  # end
+
   def sanitize_title!
     return unless @selection =~ /\#/
 

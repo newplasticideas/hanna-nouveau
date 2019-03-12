@@ -70,30 +70,26 @@
                           %div=seq
                     - else
                       %span.name
-                        - if is_documented?(method)
+                        - if has_heading?(method)
                           ~ generate_container_for(method.text, "heading", "div")
 
                   = method_html
-                .description
-                  - if is_documented?(method)
+
+                - if is_documented?(method)
+                  .description
                     ~ generate_container_for(method.text, 'description', 'div')
-                .params
-                  - if is_documented?(method)
+                  .params
                     %h3.params-title Attributes
                     ~ generate_container_for(method.text, 'params', 'div')
-                .route
-                  %h3.params-title Route
-                  - name = "#{method.aref}-source"
-                  %pre{:id => name}
-                    %code{:class => "http"}
-                      - if is_documented?(method)
+                  .route
+                    %h3.params-title Route
+                    - name = "#{method.aref}-source"
+                    %pre{:id => name}
+                      %code{:class => "http"}
                         ~ generate_container_for(method.text, 'route', 'div')
-                .response
-                  -#- if is_documented?(method)
-                  -#  ~ generate_container_for(method.text, 'description', 'div')
-                  %h3.params-title Example Response
-                  - name = "#{method.aref}-source"
-                  %pre{:id => name}
-                    %code{:class => "json"}
-                      - if is_documented?(method)
+                  .response
+                    %h3.params-title Example Response
+                    - name = "#{method.aref}-source"
+                    %pre{:id => name}
+                      %code{:class => "json"}
                         ~ generate_container_for(method.text, 'response', 'div')
