@@ -323,7 +323,7 @@ div.header
 
 #methods
   .method
-    margin-top: 0.5em
+    margin-top: 0
     .synopsis
       padding: 0 15px
       margin-bottom: 20px
@@ -340,6 +340,17 @@ div.header
     .source-toggle
       font-size: 85%
       margin-left: 1em
+    .method-details
+      float: left
+      padding: 0 0 50px
+      width: calc((100vw - 220px) * .45)
+    .method-example
+      position: relative
+      z-index: 2
+      margin-left: calc((100vw - 220px) * .45)
+      padding: 35px 0 15px
+      color: #dde4e8
+      background-color: #323232
   .public-class
     background: #ffffe4
   .public-instance .synopsis
