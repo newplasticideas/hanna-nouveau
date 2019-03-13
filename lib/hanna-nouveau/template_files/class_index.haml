@@ -1,4 +1,10 @@
-%a{:href => 'index.html', :target => '_parent'}
-  %h1 Endpoints
+.logo
+  %a{:href => 'https://home.hellodriven.com', :target => '_blank'}
+    %img(src="https://home.hellodriven.com/img/logo-colored.png")
+  %a{:href => 'index.html', :target => '_parent'}
+    %span
+      api
+
+%h1 Endpoints
 %ol#index-entries.classes
   = render_class_tree values[:classes].select { |x| x.full_name =~ /controller/i }
