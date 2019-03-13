@@ -93,7 +93,7 @@
                       %code{:class => "http"}
                         - if is_documented?(method, 'route')
                           ~ generate_container_for(method.text, 'route', 'div')
-                          
+
                   .response
                     %h3.params-title Example Response
                     - name = "#{method.aref}-source"
