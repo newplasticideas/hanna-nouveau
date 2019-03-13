@@ -213,7 +213,7 @@ div.header
       color: #484848
 
 #content
-  padding: 12px 2%
+  padding: 0
   div.class &
     position: relative
     //width: 72%
@@ -237,8 +237,10 @@ div.header
       font-size: 1.1em
   #text
     position: relative
+
   #description
     // :max-width 60em
+    padding: 15px 15px 50px 30px
     p
       margin-top: 0.5em
       color: black
@@ -250,8 +252,7 @@ div.header
     h1
       font-size: 24px
       line-height: 32px
-      margin-bottom: 0.2em
-      padding: 0 15px
+      margin-bottom: 20px
     h2
       font-size: 1.8em
       color: #292929
@@ -324,17 +325,18 @@ div.header
     margin: 1em 0 0.2em 0
 
 #methods
+  padding-left: 30px
   .method
     margin-top: 0
     .synopsis
-      padding: 0 15px
       margin-bottom: 20px
+      padding-right: 15px
       .name
         // font-weight: bold
       a
         text-decoration: none
     .description
-      padding: 0 1em 10px 1em
+      padding: 0 15px 10px 0
       pre
         background: #f8f8f8
     .source
@@ -350,7 +352,7 @@ div.header
       position: relative
       z-index: 2
       margin-left: calc((100vw - 220px) * .45)
-      padding: 35px 0 15px
+      padding: 35px 15px 15px
       color: #dde4e8
       background-color: #323232
   .public-class
@@ -404,13 +406,18 @@ div.header
 
 // Custom elements
 div.params, div.route, div.response
-  padding: 15px 1em
   h3
     font-size: 12px
     font-weight: 500
     line-height: 18px
     text-transform: uppercase
     padding-bottom: 10px
+
+div.params
+    padding: 15px 15px 15px 0
+
+div.route, div.response
+    padding: 15px 0 15px 0
 
 div.route.route-container
   font-family: $code_font_family
