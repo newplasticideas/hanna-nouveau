@@ -265,16 +265,9 @@ class RDoc::Generator::Hanna
     end
   end
 
-  def generate_container_for(method, type, element)
-    text = method.gsub("\n", '{{{{{this_is_a_new_line}}}}}')
-    text = text.scan(%r{<#{type}>.*</#{type}\>})
-    text = text.is_a?(Array) ? text[0] : text
+  def generate_container_for(method, type, element, escaped: true)
 
-    text.gsub!(%r{<#{type}>|</#{type}>}, '')
-    text.delete!('#')
-    text.gsub!('{{{{{this_is_a_new_line}}}}}', "\n")
-    text.gsub!(/\n\ *\n\ */, "\n\n")
-    text.gsub!(/\ {6}/, '')
+    text = escaped ? parse_bespoke_tags_escaped(method, type) : parse_bespoke_tags(method, type)
 
     # bespoke_element_generator(method, text, type, element)
     "<#{element} class='#{type}-container'>#{text}</#{element}>"
@@ -490,4 +483,37 @@ class RDoc::Generator::Hanna
   def haml_file(file)
     Haml::Engine.new(File.read(file), format: :html4)
   end
+
+  private
+
+    def parse_bespoke_tags_escaped(text, type)
+      text = text.scan(%r{&lt;#{type}&gt;.*&lt;\/#{type}\&gt;}m)
+      text = text.is_a?(Array) ? text[0] : text
+
+      if text
+        text.gsub!(%r{&lt;#{type}&gt;|&lt;\/#{type}\&gt;}, '')
+      else
+        text = ""
+      end
+
+      text
+    end
+
+    def parse_bespoke_tags(text, type)
+      text = text.gsub("\n", '{{{{{this_is_a_new_line}}}}}')
+      text = text.scan(%r{<#{type}>.*<\/#{type}\>})
+      text = text.is_a?(Array) ? text[0] : text
+
+      if text
+        text.gsub!(%r{<#{type}>|<\/#{type}\>}, '')
+        text.delete!('#')
+        text.gsub!('{{{{{this_is_a_new_line}}}}}', "\n")
+        text.gsub!(/\n\ *\n\ */, "\n\n")
+        text.gsub!(/\ {6}/, '')
+      else
+        text = ""
+      end
+
+      text
+    end
 end
