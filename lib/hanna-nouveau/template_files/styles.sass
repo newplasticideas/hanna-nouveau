@@ -186,6 +186,7 @@ body.list
     font-weight: bold
 
 div.header
+  display: none
   font-size: 80%
   padding: 0.5em 2%
   font-family: Arial, Helvetica, sans-serif
@@ -198,7 +199,7 @@ div.header
       font-size: 80%
       font-variant: small-caps
   h1.name
-    font-size: 32px
+    font-size: 11px
   .paths, .last-update, .parent
     color: $light_text
   .last-update .datetime
@@ -245,10 +246,10 @@ div.header
     h1, h2, h3, h4, h5, h6
       font-family: $title_font
     h1
-      font-size: 2.2em
+      font-size: 24px
+      line-height: 32px
       margin-bottom: 0.2em
-      border-bottom: 3px double #d8d8d8
-      padding-bottom: 0.1em
+      padding: 0 15px
     h2
       font-size: 1.8em
       color: #292929
@@ -324,7 +325,7 @@ div.header
   .method
     margin-top: 0.5em
     .synopsis
-      padding: 0em 1em
+      padding: 0 15px
       margin-bottom: 20px
       .name
         // font-weight: bold
@@ -345,7 +346,8 @@ div.header
     color: #292929
     .name
       font-family: $title_font
-      font-size: 24px
+      color: #444444
+      font-size: 22px
       line-height: 32px
 
 #content .method .source pre, #content pre.ruby, #methods .method .description pre.ruby

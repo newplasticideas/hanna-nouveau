@@ -76,7 +76,7 @@
                   = method_html
 
                 .description
-                  - if is_documented?(method, type: 'description')
+                  - if is_documented?(method, 'description')
                     ~ generate_container_for(method.text, 'description', 'div')
                 .params
                   %h3.params-title Attributes

@@ -1,6 +1,12 @@
+- file_page = !values[:classmod]
 - title_in_description = values[:entry].description && values[:entry].description =~ /^\s*<h1>/m
-- title = values[:entry].description == "" ?  values[:name] : values[:description]
+
 .header
+  - title = capture_haml do
+    - if file_page
+      = values[:file].name
+    - else
+      = values[:entry].full_name
   - if title_in_description
     .name= title
   - else
@@ -8,6 +14,7 @@
 
 #content
   #text
-    #description
+    - if values[:description]
+      #description~ sanitize_code_blocks frame_link values[:description]
 
     = frame_link yield
