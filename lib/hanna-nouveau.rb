@@ -64,6 +64,7 @@ class RDoc::Generator::Hanna
   FILE_INDEX       = 'file_index.haml'.freeze
   CLASS_INDEX      = 'class_index.haml'.freeze
   METHOD_INDEX     = 'method_index.haml'.freeze
+  CUSTOM_INDEX      = 'custom_index.haml'.freeze
 
   CLASS_DIR        = 'classes'.freeze
   FILE_DIR         = 'files'.freeze
@@ -72,6 +73,7 @@ class RDoc::Generator::Hanna
   FILE_INDEX_OUT   = 'fr_file_index.html'.freeze
   CLASS_INDEX_OUT  = 'fr_class_index.html'.freeze
   METHOD_INDEX_OUT = 'fr_method_index.html'.freeze
+  CUSTOM_INDEX_OUT  = 'fr_custom_index.html'.freeze
   STYLE_OUT        = File.join('css', 'style.css')
 
   DESCRIPTION = 'a HAML-based HTML generator that scales'.freeze
@@ -132,9 +134,10 @@ class RDoc::Generator::Hanna
                      end
     File.open(outjoin(INDEX_OUT), 'w') { |f| f << haml_file(templjoin(INDEX_PAGE)).to_html(binding) }
 
-    generate_index(FILE_INDEX_OUT,   FILE_INDEX,   'File',   files: @files)
-    generate_index(CLASS_INDEX_OUT,  CLASS_INDEX,  'Class',  classes: @classes)
-    generate_index(METHOD_INDEX_OUT, METHOD_INDEX, 'Method', methods: @methods, attributes: @attributes)
+    generate_index(FILE_INDEX_OUT,   FILE_INDEX,   'File',     files: @files)
+    generate_index(CLASS_INDEX_OUT,  CLASS_INDEX,  'Class',    classes: @classes)
+    generate_index(METHOD_INDEX_OUT, METHOD_INDEX, 'Method',   methods: @methods, attributes: @attributes)
+    generate_index(CUSTOM_INDEX_OUT,  CUSTOM_INDEX,  'Custom', classes: @classes, files: @files)
   end
 
   def generate_index(outfile, templfile, index_name, values)
@@ -251,6 +254,14 @@ class RDoc::Generator::Hanna
       indent = code.gsub(/\n[ \t]*\n/, "\n").scan(/^ */).map(&:size).min
       code.gsub!(/^#{' ' * indent}/, '') if indent > 0
       code.to_s
+    end
+  end
+
+  def humanize_file_name(file_name)
+    if file_name =~ /^readme\.md$/i
+      "Introduction"
+    else
+      file_name.gsub(".md", "").gsub(/^docs_/, "").humanize
     end
   end
 

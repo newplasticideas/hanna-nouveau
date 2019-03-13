@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/hanna-nouveau.rb",
+    "lib/hanna-nouveau/template_files/custom_index.haml",
     "lib/hanna-nouveau/template_files/class_index.haml",
     "lib/hanna-nouveau/template_files/file_index.haml",
     "lib/hanna-nouveau/template_files/index.haml",
@@ -41,4 +42,3 @@ END
   s.add_dependency('rdoc', [">= 4"])
   s.add_dependency('pry')
 end
-
