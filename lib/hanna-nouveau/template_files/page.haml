@@ -17,6 +17,6 @@
     - if values[:description]
       #description
         .description-content
-          ~ sanitize_code_blocks frame_link values[:description]
+          ~ frame_link values[:description]
 
     = frame_link yield

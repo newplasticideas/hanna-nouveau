@@ -241,7 +241,7 @@ class RDoc::Generator::Hanna
   end
 
   def sanitize_code_blocks(text)
-    text.gsub!(%r{\<p\>|\</p\>}, '') if text =~ %r{\<p\>|\</p\>}
+    # text.gsub!(%r{\<p\>|\</p\>}, '') if text =~ %r{\<p\>|\</p\>}
 
     if text =~ /\<strong\>/
       text = text.split("\n")
