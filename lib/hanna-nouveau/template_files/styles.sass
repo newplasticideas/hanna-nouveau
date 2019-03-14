@@ -230,9 +230,11 @@ div.header
   p, li, dl
     code, tt
       font: $code_font
-      background: #ffffe3
+      background: #eee
+      color: #553333
       padding: 2px 3px
       line-height: 1.4
+      border-radius: 5px
   h1, h2, h3, h4, h5, h6
     code, tt
       font-size: 1.1em
@@ -418,10 +420,20 @@ div.params, div.route, div.response
     padding-bottom: 10px
 
 div.params
-    padding: 15px 15px 15px 0
+  padding: 15px 15px 15px 0
+  ul
+    list-style: none
+    padding-left: 20px
+    li
+      padding: 5px
+      border-bottom: solid 1px #eee
+    li:first-child
+      padding-top: 0
+    li:last-child
+      border-bottom: none
 
 div.route, div.response
-    padding: 15px 0 15px 0
+  padding: 15px 0 15px 0
 
 div.route.route-container
   font-family: $code_font_family
